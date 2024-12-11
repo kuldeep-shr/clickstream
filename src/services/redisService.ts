@@ -14,11 +14,11 @@ export const checkRateLimit = async (
     await redisClient.expire(key, 60); // Set key to expire after 60 seconds
   }
 
-  return currentCount > 10; // Returns true if limit exceeded
+  return currentCount > 10;
 };
 
 export const logClick = async (button: string, userIp: string) => {
   const logKey = `log:${button}:${userIp}`;
   const timestamp = new Date().toISOString();
-  await redisClient.lPush(logKey, timestamp); // Corrected method name
+  await redisClient.lPush(logKey, timestamp);
 };

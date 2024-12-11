@@ -2,7 +2,8 @@ import * as dotenv from "dotenv";
 dotenv.config();
 import express from "express";
 import path from "path";
-import { allRoutes } from "./routes/routes";
+import { renderRoutes } from "./routes/renderRoutes";
+import { apiRoutes } from "./routes/apiRoutes";
 
 const app = express();
 const port = process.env.PORT;
@@ -15,7 +16,8 @@ app.set("view engine", "pug");
 app.use(express.json());
 
 // Use routes
-app.use("/api", allRoutes);
+app.use("/", renderRoutes);
+app.use("/api", apiRoutes);
 
 // Start server
 app.listen(port, () => {

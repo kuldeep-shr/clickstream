@@ -11,4 +11,4 @@ router.use(loggerMiddleware);
 router.get("/", renderPage);
 router.post("/click/:button", rateLimiterMiddleware, handleButtonClick);
 
-export const allRoutes = router;
+export const apiRoutes = router;
