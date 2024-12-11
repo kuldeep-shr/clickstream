@@ -27,7 +27,7 @@ export const rateLimiterMiddleware = async (
         .status(429)
         .json(errorResponse(`Rate limit reached for ${button} button.`));
     } else {
-      next(); // Allow the request to proceed if within limits
+      next();
     }
   } catch (error) {
     res
