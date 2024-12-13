@@ -1,7 +1,20 @@
 import { createClient } from "redis";
 
-const redisClient = createClient();
-redisClient.connect();
+// const redisClient = createClient();
+// redisClient.connect();
+
+const redisClient = createClient({
+  url: "redis://redis:6379",
+});
+
+redisClient.on("error", (err) => {
+  console.error("Redis Client Error:", err);
+});
+
+// Ensure Redis client connects properly
+(async () => {
+  await redisClient.connect();
+})();
 
 export const checkRateLimit = async (
   button: string,
@@ -18,7 +31,11 @@ export const checkRateLimit = async (
 };
 
 export const logClick = async (button: string, userIp: string) => {
-  const logKey = `log:${button}:${userIp}`;
+  const logKey = `log:${button}:${userIp}:timestamp`;
   const timestamp = new Date().toISOString();
   await redisClient.lPush(logKey, timestamp);
+};
+
+export const closeRedisClient = async () => {
+  await redisClient.quit();
 };

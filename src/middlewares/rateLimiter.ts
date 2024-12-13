@@ -30,6 +30,7 @@ export const rateLimiterMiddleware = async (
       next();
     }
   } catch (error) {
+    console.log("THE error>>>>>>>>>>>>>", error);
     res
       .status(500)
       .json(errorResponse("Error in rate limiting middleware", error));
