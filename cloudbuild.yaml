@@ -1,0 +1,40 @@
+substitutions:
+  _REGION: "${REGION}"
+  _PUB_SUB_FILE_PATH: "${PUB_SUB_FILE_PATH}"
+  _PUB_SUB_TOPIC: "${PUB_SUB_TOPIC}"
+  _GCP_PROJECT_ID: "${GCP_PROJECT_ID}"
+  _CLOUD_RUN_IMAGE: "${CLOUD_RUN_IMAGE}"
+
+steps:
+  # Step 1: Build the Docker image
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      - "build"
+      - "-t"
+      - "${_CLOUD_RUN_IMAGE}:$BUILD_ID"
+      - "."
+
+  # Step 2: Push the Docker image to Google Container Registry
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      - "push"
+      - "${_CLOUD_RUN_IMAGE}:$BUILD_ID"
+
+  # Step 3: Deploy the image to Google Cloud Run
+  - name: "gcr.io/cloud-builders/gcloud"
+    args:
+      - "run"
+      - "deploy"
+      - "clickstream"
+      - "--image"
+      - "${_CLOUD_RUN_IMAGE}:$BUILD_ID"
+      - "--region"
+      - "$_REGION"
+      - "--set-env-vars"
+      - |
+        PUB_SUB_FILE_PATH=$_PUB_SUB_FILE_PATH,
+        PUB_SUB_TOPIC=$_PUB_SUB_TOPIC
+      - "--allow-unauthenticated"
+
+images:
+  - "${_CLOUD_RUN_IMAGE}:$BUILD_ID"

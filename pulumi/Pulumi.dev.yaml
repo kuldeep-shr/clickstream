@@ -1,0 +1,9 @@
+config:
+  clickstream-pulumi:project: ${CLICKSTREAM_PROJECT_ID}
+  clickstream-pulumi:region: ${CLICKSTREAM_REGION}
+  clickstream-pulumi:cloudRunImage: ${CLOUD_RUN_IMAGE}
+  clickstream-pulumi:pubsubTopicName: ${PUBSUB_TOPIC_NAME}
+  pulumi-clickstream:project: ${CLICKSTREAM_PROJECT_ID}
+  pulumi-clickstream:region: ${CLICKSTREAM_REGION}
+  pulumi-clickstream:cloudRunImage: ${CLOUD_RUN_IMAGE}
+  pulumi-clickstream:pubsubTopicName: ${PUBSUB_TOPIC_NAME}

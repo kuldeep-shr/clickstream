@@ -3,7 +3,4 @@ node_modules
 package-lock.json
 dist
 host_files
-app.yaml
-d.txt
-gcp-pulumi-deploy
-cloudbuild.yaml
+/pulumi/node_modules

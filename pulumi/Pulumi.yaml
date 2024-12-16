@@ -1,0 +1,10 @@
+name: pulumi-clickstream
+description: rate limiting logging using gcp and pulumi
+runtime:
+  name: nodejs
+  options:
+    packagemanager: npm
+config:
+  pulumi:tags:
+    value:
+      pulumi:template: typescript
