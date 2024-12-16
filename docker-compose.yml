@@ -6,30 +6,15 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8080:8080"
+      - "8000:8000"
     environment:
-      - PORT=8080
-      - PUB_SUB_FILE_PATH=/app/host_files/google_pub_sub.json
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
-      - PUBSUB_TOPIC=rate-limit-events
+      - PORT=${PORT}
+      - PUB_SUB_FILE_PATH=${PUB_SUB_FILE_PATH}
+      - PUB_SUB_TOPIC=${PUB_SUB_TOPIC}
     volumes:
       - ./host_files:/app/data
       - app_data:/app/persistent_data
-    depends_on:
-      - redis
-
-  redis:
-    image: redis:latest
-    ports:
-      - "6379:6379"
-    command: redis-server --save 20 1 --loglevel warning
-    volumes:
-      - redis_data:/data
-    restart: always
 
 volumes:
   app_data:
-    driver: local
-  redis_data:
     driver: local

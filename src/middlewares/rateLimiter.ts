@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { checkRateLimit } from "../services/redisService";
+import { checkRateLimit } from "../services/memoryService";
 import { errorResponse } from "../utils/responseHelper";
 import { publishMessage } from "../services/pubsubService";
 
@@ -30,7 +30,6 @@ export const rateLimiterMiddleware = async (
       next();
     }
   } catch (error) {
-    console.log("THE error>>>>>>>>>>>>>", error);
     res
       .status(500)
       .json(errorResponse("Error in rate limiting middleware", error));

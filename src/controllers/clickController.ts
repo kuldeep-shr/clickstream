@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { successResponse, errorResponse } from "../utils/responseHelper";
-import { logClick } from "../services/redisService";
+import { logClick } from "../services/memoryService";
 
 export const renderPage = async (req: Request, res: Response) => {
   res.render("index");
@@ -20,7 +20,7 @@ export const handleButtonClick = async (
   const userIp: any = req.ip;
 
   try {
-    await logClick(button, userIp);
+    logClick(button, userIp);
     res
       .status(200)
       .json(successResponse(`${button} button clicked successfully!`));

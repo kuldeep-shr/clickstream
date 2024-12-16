@@ -1,5 +1,5 @@
-# Use an official Node.js runtime as a parent image
-FROM node:16
+# Use a base image with necessary build tools for native dependencies
+FROM node:18-alpine
 
 # Set the working directory in the container
 WORKDIR /app
@@ -19,8 +19,5 @@ RUN npm install -g typescript
 # Build the TypeScript code
 RUN npm run build
 
-# Expose the port the app will run on
-EXPOSE 8080
-
 # Run the build command and then start the app
-CMD ["sh", "-c", "npm run build && npm start"]
+CMD ["sh", "-c", "npm start"]

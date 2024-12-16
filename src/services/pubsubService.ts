@@ -16,7 +16,7 @@ interface ClickstreamEvent {
 // Publish a message
 export async function publishMessage(userIp: string, button: string) {
   const timestamp = Date.now();
-  const topicName = process.env.PUB_SUB_TOPIC;
+  const topicName: any = process.env.PUB_SUB_TOPIC;
   const topic = pubSubClient.topic(topicName);
 
   try {
@@ -29,24 +29,3 @@ export async function publishMessage(userIp: string, button: string) {
     console.error("Error publishing message:", error);
   }
 }
-
-// Subscribe to a topic
-// export async function subscribeToTopic() {
-// const subscriptionName = process.env.PUB_SUB_SUBCRIPTION;
-//   const topicName = process.env.PUB_SUB_TOPIC;
-
-//   const subscription = pubSubClient.subscription(subscriptionName);
-
-//   // Create the subscription if it doesn't exist
-//   await subscription.create({ topic: topicName });
-
-//   const messageHandler = async (message: any) => {
-//     const event: ClickstreamEvent = JSON.parse(message.data.toString());
-//     console.log(
-//       `Received message ${message.id}: Timestamp: ${event.timestamp}, User IP: ${event.userIp},button:${event.button}`
-//     );
-//     message.ack(); // Acknowledge the message
-//   };
-
-//   subscription.on("message", messageHandler);
-// }
